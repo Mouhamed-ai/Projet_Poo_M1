@@ -44,8 +44,10 @@ public class StockService {
     }
 
     /**
-     * C3 - Règle 6 : refuser si le produit figure dans une commande validée (et, décision D,
-     * en cours) : interroger commandeService.produitDansCommandeActive(reference).
+     * C3 - Règle 6 : refuser UNIQUEMENT si le produit figure dans une commande VALIDEE :
+     * commandeService.produitDansCommandeValidee(reference). Décision du groupe : s'il figure dans des
+     * commandes EN_COURS, la suppression est permise : commandeService.retirerProduitDesCommandesEnCours(reference)
+     * retire ses lignes (Iterator) et renvoie les numéros touchés, à afficher à l'utilisateur.
      * Après suppression : recalculer le TreeSet des catégories (une catégorie peut disparaître).
      */
     public void supprimerProduit(String reference) {
