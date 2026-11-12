@@ -1,0 +1,22 @@
+QUI POSSEDE QUOI (un fichier = un responsable : evite les conflits Git)
+
+Aminata       service/CommandeService.java   ui/MenuCommandes.java        E1-E5 + aides (obtenir, produitDansCommandeValidee,
+                                                                          retirerProduitDesCommandesEnCours, clientADesCommandesActives,
+                                                                          commandesDuClient) + integration, archive, envoi
+Pape Mamadou  service/StockService.java      ui/MenuProduits.java         C1-C7
+              service/JournalStockService    (bonus H1)
+              service/TableauDeBordService   ui/MenuTableauDeBord         (bonus H3)
+Sokhna        service/ClientService.java     ui/MenuClients.java          D1-D5
+              service/AuthService.java       ui/MenuGestionnaire.java     F2, F3
+              donnees/DonneesDemo.java       (G1)    README.txt
+              service/PersistanceService     (bonus H4)
+Moustapha     service/FactureService.java    ui/MenuFacturation.java      E6, E7, ajout de l'arrondi dans modele/Facture (fait)
+              CommandeService, section "Consultation" + MenuCommandes.consulter()   E8
+              ui/MenuVendeur.java            (F4)    plan de tests, video
+              service/ExportService.java     (bonus H2)
+
+PARTAGE (modifie seulement apres accord de tous) : tout le dossier modele/, ui/Saisie, ui/Affichage, ui/Menu, Main.java
+Quand une methode est codee : remplacer le "throw ATraiter.pour(...)" par le vrai code.
+
+CHARGE PREVUE (heures restantes) : Aminata 22 | Pape Mamadou 21,5 | Sokhna 22 | Moustapha 22   (voir le plan de projet, sections 6 et 7)
+Tags "AIDE" : petites methodes de CommandeService dont les autres modules dependent -> Aminata les ecrit le mercredi 11, avant E2.
