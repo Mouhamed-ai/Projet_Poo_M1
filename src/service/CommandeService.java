@@ -3,6 +3,8 @@ package service;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Collections;
+import java.util.Comparator;
 
 import modele.Commande;
 import modele.StatutCommande;
@@ -75,12 +77,28 @@ public class CommandeService {
     public Commande obtenir(String numero) { throw ATraiter.pour("AIDE", "obtenir une commande"); }
 
     // ---------- Consultation (E8, Moustapha) ----------
+      /** Toutes les commandes, triées par numéro (CMD001, CMD002...). Renvoie une copie. */
+    public ArrayList<Commande> listerToutes() {
+        ArrayList<Commande> liste = new ArrayList<>(commandes.values());
+        Collections.sort(liste, new Comparator<Commande>() {
+            @Override
+            public int compare(Commande a, Commande b) {
+                return a.getNumero().compareTo(b.getNumero());
+            }
+        });
+        return liste;
+    }
 
-    /** Toutes les commandes (copie). Utilisé par le tableau de bord et la sauvegarde. */
-    public ArrayList<Commande> listerToutes() { throw ATraiter.pour("E8", "lister toutes les commandes"); }
-
-    /** Commandes ayant un statut donné. */
-    public ArrayList<Commande> listerParStatut(StatutCommande statut) { throw ATraiter.pour("E8", "lister par statut"); }
+    /** Les commandes d'un statut donné (EN_COURS, VALIDEE ou ANNULEE), triées par numéro. */
+    public ArrayList<Commande> listerParStatut(StatutCommande statut) {
+        ArrayList<Commande> resultat = new ArrayList<>();
+        for (Commande c : listerToutes()) {
+            if (c.getStatut() == statut) {
+                resultat.add(c);
+            }
+        }
+        return resultat;
+    }
 
     /** Historique d'un client (liste vide si aucune commande). */
     public ArrayList<Commande> commandesDuClient(String codeClient) { throw ATraiter.pour("AIDE", "commandes d'un client"); }

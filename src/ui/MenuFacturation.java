@@ -1,12 +1,15 @@
 package ui;
 
-import service.ATraiter;
+import modele.Commande;
+import modele.Facture;
 import service.CommandeService;
 import service.ExportService;
 import service.FactureService;
 
 /** Sous-menu Facturation  -  Responsable : Moustapha (E7, bonus H2). */
 public class MenuFacturation extends Menu {
+
+    private static final String DOSSIER_EXPORT = "exports";
 
     private final CommandeService commandes;
     private final FactureService factures;
@@ -34,6 +37,21 @@ public class MenuFacturation extends Menu {
         }
     }
 
-    private void editer() { throw ATraiter.pour("E7", "factures.afficher(factures.calculer(commande))"); }
-    private void exporter() { throw ATraiter.pour("H2", "export.exporterFacture(...)"); }
+    /** E7 : édite la facture d'une commande validée (la règle 7 est contrôlée dans FactureService.calculer). */
+    private void editer() {
+        String numero = Saisie.lireTexteNonVide("Numéro de commande").trim().toUpperCase();
+        Commande commande = commandes.obtenir(numero);
+        factures.afficher(factures.calculer(commande));
+        Saisie.pause();
+    }
+
+    /** Bonus H2 : exporte la facture dans exports/facture_CMDxxx.txt. */
+    private void exporter() {
+        String numero = Saisie.lireTexteNonVide("Numéro de commande").trim().toUpperCase();
+        Commande commande = commandes.obtenir(numero);
+        Facture facture = factures.calculer(commande);
+        String chemin = export.exporterFacture(facture, factures.formater(facture), DOSSIER_EXPORT);
+        System.out.println("Facture exportée dans : " + chemin);
+        Saisie.pause();
+    }
 }
