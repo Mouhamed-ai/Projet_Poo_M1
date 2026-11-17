@@ -1,0 +1,6 @@
+vendeur
+x
+vendeur
+y
+vendeur
+z
